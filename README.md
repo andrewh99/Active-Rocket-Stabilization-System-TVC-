@@ -8,6 +8,15 @@ This repository contains the flight control software for a custom-built 2-axis T
 
 ## System Architecture
 ### Hardware
+## Mechanical Design
+The gimbal assembly was designed in SolidWorks to accommodate the specific torque requirements of the flight vehicle.
+
+![Gimbal Assembly](images/final_render.png)
+
+### Key Specifications:
+* **Axis 1 (Lower):** 120mm gear driven by a 24mm pinion ($5.0:1$).
+* **Axis 2 (Upper):** 166mm gear driven by a 24mm pinion ($6.91:1$).
+* **Material:** [Add your material here, e.g., PLA+, PETG, or Carbon Fiber Nylon]
 * **Controller:** Teensy 4.1 (Cortex-M7 at 600MHz)
 * **IMU:** BNO055 (Absolute Orientation via Gravity Vector)
 * **Actuators:** High-torque hobby servos
