@@ -19,7 +19,7 @@ This repository contains the flight control software and mechanical design for a
    * **Axis 1 (Lower):** 120mm Gear / 24mm Pinion (**5.0:1 Ratio**)
    * **Axis 2 (Upper):** 166mm Gear / 24mm Pinion (**6.91:1 Ratio**)
 
-## Control Theory
+## Control Theory v1.0
 The system utilizes a **Proportional (P) Feedback Loop**. By leveraging the IMU's gravity vector rather than Euler angles, the controller avoids gimbal lock during high-dynamic vertical flight.
 
 
@@ -34,10 +34,4 @@ To account for mounting variances, specific offsets are applied to the raw telem
 * **Lower Axis (Y) Offset:** 0.50
 * **Upper Axis (Z) Offset:** -0.52
 
-The firmware includes a **10-second startup safety lock**, holding the servos at their neutral trim positions (Low: 82.5°, Up: 95.0°) before engaging reactive mode.
-
-## Installation
-1. Install the `Adafruit_BNO055` and `Adafruit_Sensor` libraries.
-2. Connect the BNO055 via I2C (Pins 18/19).
-3. Connect Servos to Pins 0 and 1.
-4. Upload `src/TVC_Main.ino`.
+The firmware includes a **1-second startup safety lock**, holding the servos at their neutral trim positions (Low: 82.5°, Up: 95.0°) before engaging reactive mode.
