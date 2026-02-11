@@ -12,7 +12,8 @@ This repository contains the flight control software and mechanical design for a
 The gimbal assembly was engineered in **SolidWorks** with a focus on optimizing weight-to-strength ratios and part durability under high-vibration aerospace environments.
 
 * **Material Science:** Utilizes **PETG** for its superior impact resistance and thermal stability over PLA, ensuring structural integrity during motor ignition and flight loads.
-* **Selective Infill Optimization:** * **Structural Components:** 15% infill to minimize rotational inertia, reducing the torque required for high-frequency corrections.
+* **Selective Infill Optimization:**
+  * **Structural Components:** 15% infill to minimize rotational inertia, reducing the torque required for high-frequency corrections.
    * **Power Transmission (Gears):** 100% infill to ensure maximum shear strength of gear teeth and to maintain precise mesh under load.
 * **Actuation:** Driven by **EMAX ES08MA II** metal-gear micro servos, selected for their superior durability and 2.0 kg/cm stall torque.
 
