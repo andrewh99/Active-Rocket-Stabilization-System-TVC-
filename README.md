@@ -1,46 +1,45 @@
-# Active-Rocket-Stabilization-System-TVC
 # Teensy 4.1 Thrust Vector Control (TVC) System
-**Author:** Andrew Hrisak  
-**Project Type:** Aerospace Engineering Senior Capstone (Georgia Tech)
+**Author:** Andrew Hrisak
+**Project Type:** Aerospace Engineering Project | Georgia Institute of Technology
 
 ## Overview
-This repository contains the flight control software for a custom-built 2-axis TVC gimbal. The system uses a **Teensy 4.1** microcontroller and an **Adafruit BNO055 IMU** to provide real-time stabilization for a model rocket motor.
+This repository contains the flight control software and mechanical design for a custom 2-axis Thrust Vector Control (TVC) gimbal. Utilizing a **Teensy 4.1** and an **Adafruit BNO055 IMU**, the system provides active stabilization for model rocket motors by reacting to gravity vector deflection in real-time.
 
-## System Architecture
-### Hardware
 ## Mechanical Design
-The gimbal assembly was designed in SolidWorks to accommodate the specific torque requirements of the flight vehicle.
+The gimbal assembly was developed in **SolidWorks** to maximize angular resolution and torque delivery.
 
 ![Gimbal Assembly](hardware/final_render2.png)
 
-### Key Specifications:
-* **Axis 1 (Lower):** 120mm gear driven by a 24mm pinion ($5.0:1$).
-* **Axis 2 (Upper):** 166mm gear driven by a 24mm pinion ($6.91:1$).
-* **Material:** [Add your material here, e.g., PLA+, PETG, or Carbon Fiber Nylon]
-* **Controller:** Teensy 4.1 (Cortex-M7 at 600MHz)
-* **IMU:** BNO055 (Absolute Orientation via Gravity Vector)
-* **Actuators:** High-torque hobby servos
-* **Gimbal Mechanics:** * **Lower Axis:** 120mm Gear (5.0:1 Ratio)
-    * **Upper Axis:** 166mm Gear (6.91:1 Ratio)
+### Specifications
+* **Controller:** Teensy 4.1
+* **IMU:** BNO055
+* **Actuators:** EMAX ES08MA II
+* **Materials:**
+   * **Airframe/Structure:** PETG (15% Infill for optimized weight-to-strength ratio)
+   * **Power Transmission:** PETG (100% Infill for maximum tooth shear strength and durability)
+* **Gimbal Mechanics:**
+   * **Axis 1 (Lower):** 120mm Gear / 24mm Pinion (**5.0:1 Ratio**)
+   * **Axis 2 (Upper):** 166mm Gear / 24mm Pinion (**6.91:1 Ratio**)
 
-### Control Logic
-The current implementation utilizes a **Proportional (P) Feedback Loop** based on gravity vector deflection. 
+## Control Theory
+The system utilizes a **Proportional (P) Feedback Loop**. By leveraging the IMU's gravity vector rather than Euler angles, the controller avoids gimbal lock during high-dynamic vertical flight.
 
 
 
 **Control Law:**
 $$u(t) = K_p \cdot (G_{raw} - G_{offset})$$
 
-Where $K_p$ accounts for both the software gain and the mechanical gear reduction of the specific axis.
+Where $K_p$ incorporates the software gain (currently 8.0) and the specific mechanical advantage of each axis.
 
-## Calibration Data
-To account for mounting variances, the following offsets are applied to the raw Gravity Vector readings:
-* **Lower Axis (Y):** 0.28
-* **Upper Axis (Z):** -0.24
+## Calibration & Implementation
+To account for mounting variances, specific offsets are applied to the raw telemetry to establish a "True Vertical" baseline:
+* **Lower Axis (Y) Offset:** 0.50
+* **Upper Axis (Z) Offset:** -0.52
 
-## Installation & Use
-1. Install the `Adafruit_BNO055` and `Adafruit_Sensor` libraries via Arduino Library Manager.
+The firmware includes a **10-second startup safety lock**, holding the servos at their neutral trim positions (Low: 82.5°, Up: 95.0°) before engaging reactive mode.
+
+## Installation
+1. Install the `Adafruit_BNO055` and `Adafruit_Sensor` libraries.
 2. Connect the BNO055 via I2C (Pins 18/19).
 3. Connect Servos to Pins 0 and 1.
 4. Upload `src/TVC_Main.ino`.
-5. The system features a **10-second startup lock** to allow for safe physical inspection before reactive mode begins.
